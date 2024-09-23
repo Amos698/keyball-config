@@ -1,10 +1,9 @@
 #define DEFAULT 0
-#define NUM     1
-#define SYM     2
-#define FUN     3
-#define MOUSE   4
-#define SCROLL  5
-#define SNIPE   6
+#define SYM     1
+#define FUN     2
+#define MOUSE   3
+#define SCROLL  4
+#define SNIPE   5
 
 #include <behaviors.dtsi>
 #include <behaviors/mouse_keys.dtsi>
@@ -25,101 +24,74 @@
     quick-tap-ms = <150>;
 };
 
-&caps_word {
-    continue-list = <UNDERSCORE MINUS>;
-};
-
 / {
 
-    // custom shift using mod-morph 
-    behaviors {
-      cmqus: comma_question {
-        compatible = "zmk,behavior-mod-morph";
-        label = "COMMA_QUESTION";
-        #binding-cells = <0>;
-        bindings = <&kp COMMA>, <&kp QUESTION>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-      };
-
-      dtsmi: dot_semi {
-        compatible = "zmk,behavior-mod-morph";
-        label = "DOT_SEMI";
-        #binding-cells = <0>;
-        bindings = <&kp DOT>, <&kp SEMI>;
-        mods = <(MOD_LSFT|MOD_RSFT)>;
-      };
-    };
-    
     keymap {
         compatible = "zmk,keymap";
 
         default_layer {
             label = "QWRT";
             bindings = <
-            	&kp Q           &kp W           &kp E           &kp R           &kp T           &kp Y           &kp U           &kp I           &kp O           &kp P
-             	&mt LGUI A      &mt LALT S      &mt LSFT D      &mt LCTL F      &lt NUM G       &lt NUM H       &mt RCTL J      &mt RSFT K      &mt RALT L      &mt RGUI SQT 
-                &kp Z           &kp X           &kp C           &kp V           &kp B           &kp N           &kp M           &cmqus          &dtsmi          &kp CAPS
-                                                &lt MOUSE ESC   &lt FUN TAB     &lt SYM SPACE   &lt SYM RET     &lt FUN BSPC
+                &kp ESC     &kp N1      &kp N2          &kp N3          &kp N4          &kp N5                           &kp N6          &kp N7    &kp N8      &kp N9    &kp N0       &kp BSPC
+            	&kp TAB     &kp Q       &kp W           &kp E           &kp R           &kp T                            &kp Y           &kp U     &kp I       &kp O     &kp P        &kp N0
+             	&kp CAPS    &kp A       &kp S           &kp D           &kp F           &kp G                            &kp H           &kp J     &kp K       &kp L     &kp SEMI &kp RET
+                &kp LSFT    &kp Z       &kp X           &kp C           &kp V           &kp B          &kp B    &kp SQT  &kp N           &kp M     &kp COMMA   &kp DOT   &kp FSLH     &kp RSFT
+                &kp LCTL    &kp LALT    &kp LGUI        &kp N           &kp V           &lt FUN SPACE  &kp B    &kp RGUI &lt SYM SPACE                                   &kp RALT     &kp RCTL
              	>;
-        };
-
-        number_layer {
-            label = "NUM";
-            bindings = <
-                &none           &none           &none           &none           &none           &kp KP_PLUS     &kp N7          &kp N8          &kp N9          &kp KP_MINUS
-                &kp LGUI        &kp LALT        &kp LSFT        &kp LCTL        &none           &kp KP_MULTIPLY &kp N4          &kp N5          &kp N6          &kp KP_DIVIDE
-                &none           &none           &none           &none           &none           &kp KP_EQUAL    &kp N1          &kp N2          &kp N3          &kp KP_DOT
-                                                &none           &none           &kp BSPC        &kp RET         &kp N0
-            >;
         };
 
         symbol_layer {
             label = "SYM";
             bindings = <
-                &none           &none           &kp LT          &kp GT          &kp PRCNT       &kp AMPS        &kp CARET       &kp LBRC        &kp RBRC        &none
-                &kp GRAVE       &kp EXCL        &kp MINUS       &kp PLUS        &kp EQUAL       &kp PIPE        &kp COLON       &kp LPAR        &kp RPAR        &kp AT
-                &none           &none           &kp SLASH       &kp STAR        &kp BSLH        &kp HASH        &kp DLLR        &kp LBKT        &kp RBKT        &none  
-                                                &none           &none           &none           &none           &none
+             &kp ESC     &kp N1      &kp N2          &kp N3          &kp N4          &kp N5                           &kp N6          &kp N7    &kp N8      &kp N9    &kp N0       &kp BSPC
+            	&kp TAB     &kp Q       &kp W           &kp E           &kp R           &kp T                            &kp Y           &kp U     &kp I       &kp O     &kp P        &kp N0
+             	&kp CAPS    &kp A       &kp S           &kp D           &kp F           &kp G                            &kp H           &kp J     &kp K       &kp L     &kp SEMI &kp RET
+                &kp LSFT    &kp Z       &kp X           &kp C           &kp V           &kp B          &kp B    &kp SQT  &kp N           &kp M     &kp COMMA   &kp DOT   &kp FSLH     &kp RSFT
+                &kp LCTL    &kp LALT    &kp LGUI        &kp N           &kp V           &lt FUN SPACE  &kp B    &kp RGUI &lt SYM SPACE                                   &kp RALT     &kp RCTL
             >;
         };
 
         function_layer {
             label = "FUN";
             bindings = <
-                &kp F1           &kp F2         &kp F3          &kp F4          &none           &none           &none           &bt BT_PRV      &bt BT_NXT      &bt BT_CLR 
-                &kp F5           &kp F6         &kp F7          &kp F8          &none           &kp LEFT        &mt RCTL DOWN   &mt RSFT UP     &mt RALT RIGHT  &kp RGUI
-                &kp F9           &kp F10        &kp F11         &kp F12         &none           &none           &none           &none           &none           &none
-                                                &none           &none           &none           &none           &none
+                &kp ESC     &kp N1      &kp N2          &kp N3          &kp N4          &kp N5                           &kp N6          &kp N7    &kp N8      &kp N9    &kp N0       &kp BSPC
+            	&kp TAB     &kp Q       &kp W           &kp E           &kp R           &kp T                            &kp Y           &kp U     &kp I       &kp O     &kp P        &kp N0
+             	&kp CAPS    &kp A       &kp S           &kp D           &kp F           &kp G                            &kp H           &kp J     &kp K       &kp L     &kp SEMI &kp RET
+                &kp LSFT    &kp Z       &kp X           &kp C           &kp V           &kp B          &kp B    &kp SQT  &kp N           &kp M     &kp COMMA   &kp DOT   &kp FSLH     &kp RSFT
+                &kp LCTL    &kp LALT    &kp LGUI        &kp N           &kp V           &lt FUN SPACE  &kp B    &kp RGUI &lt SYM SPACE                                   &kp RALT     &kp RCTL
             >;
         };
 
         mouse_layer {
             label = "MOUSE";
             bindings = <
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                &trans           &mkp LCLK        &mkp MCLK        &mkp RCLK         &trans          &trans          &kp RCTL        &kp RSFT        &kp RALT        &kp RGUI
-                &trans           &trans           &trans           &lt SCROLL ESC    &lt SNIPE ESC   &trans          &trans          &trans          &trans          &mkp LCLK
-                                                  &trans           &trans            &trans          &trans          &trans
+                &kp ESC     &kp N1      &kp N2          &kp N3          &kp N4          &kp N5                           &kp N6          &kp N7    &kp N8      &kp N9    &kp N0       &kp BSPC
+            	&kp TAB     &kp Q       &kp W           &kp E           &kp R           &kp T                            &kp Y           &kp U     &kp I       &kp O     &kp P        &kp N0
+             	&kp CAPS    &kp A       &kp S           &kp D           &kp F           &kp G                            &kp H           &kp J     &kp K       &kp L     &kp SEMI &kp RET
+                &kp LSFT    &kp Z       &kp X           &kp C           &kp V           &kp B          &kp B    &kp SQT  &kp N           &kp M     &kp COMMA   &kp DOT   &kp FSLH     &kp RSFT
+                &kp LCTL    &kp LALT    &kp LGUI        &kp N           &kp V           &lt FUN SPACE  &kp B    &kp RGUI &lt SYM SPACE                                   &kp RALT     &kp RCTL
             >;
         };
 
         scroll_layer {
             label = "SCROLL";
             bindings = <
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                                                  &trans           &trans            &trans          &trans          &trans
+                &kp ESC     &kp N1      &kp N2          &kp N3          &kp N4          &kp N5                           &kp N6          &kp N7    &kp N8      &kp N9    &kp N0       &kp BSPC
+            	&kp TAB     &kp Q       &kp W           &kp E           &kp R           &kp T                            &kp Y           &kp U     &kp I       &kp O     &kp P        &kp N0
+             	&kp CAPS    &kp A       &kp S           &kp D           &kp F           &kp G                            &kp H           &kp J     &kp K       &kp L     &kp SEMI &kp RET
+                &kp LSFT    &kp Z       &kp X           &kp C           &kp V           &kp B          &kp B    &kp SQT  &kp N           &kp M     &kp COMMA   &kp DOT   &kp FSLH     &kp RSFT
+                &kp LCTL    &kp LALT    &kp LGUI        &kp N           &kp V           &lt FUN SPACE  &kp B    &kp RGUI &lt SYM SPACE                                   &kp RALT     &kp RCTL
             >;
         };
 
         snipe_layer {
             label = "SNIPE";
             bindings = <
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                &trans           &trans           &trans           &trans            &trans          &trans          &trans          &trans          &trans          &trans
-                                                  &trans           &trans            &trans          &trans          &trans
+                &kp ESC     &kp N1      &kp N2          &kp N3          &kp N4          &kp N5                           &kp N6          &kp N7    &kp N8      &kp N9    &kp N0       &kp BSPC
+            	&kp TAB     &kp Q       &kp W           &kp E           &kp R           &kp T                            &kp Y           &kp U     &kp I       &kp O     &kp P        &kp N0
+             	&kp CAPS    &kp A       &kp S           &kp D           &kp F           &kp G                            &kp H           &kp J     &kp K       &kp L     &kp SEMI &kp RET
+                &kp LSFT    &kp Z       &kp X           &kp C           &kp V           &kp B          &kp B    &kp SQT  &kp N           &kp M     &kp COMMA   &kp DOT   &kp FSLH     &kp RSFT
+                &kp LCTL    &kp LALT    &kp LGUI        &kp N           &kp V           &lt FUN SPACE  &kp B    &kp RGUI &lt SYM SPACE                                   &kp RALT     &kp RCTL
             >;
         };
     };
